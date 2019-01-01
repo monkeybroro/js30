@@ -2,13 +2,13 @@
 <head>
 	<style>
 		body {
-			background-color: azure
+			background-image: url('bg.jpg');
 		}
 		.drum-container {
 			width: 90%;
 			margin-left: auto;
 			margin-right: auto;
-			margin-top:100px;
+			margin-top:450px;
 		}
 		.drum {
 			display: flex;
@@ -43,17 +43,29 @@
 			<div data-key="71" class="key">G</div>
 			<div data-key="72" class="key">H</div>
 			<div data-key="74" class="key">J</div>
+			<div data-key="75" class="key">K</div>
+			<div data-key="76" class="key">L</div>
 		</div>
 	</div>
 	<script type="text/javascript">
+		function shine(key) {
+			key.className += ' clicked';
+			setTimeout(function(){
+				let index = key.className.indexOf(' clicked');
+				if (index > -1) key.className = key.className.substring(0, index);
+			}, 200);
+		}
+
+		function play(code) {
+			let drum = new Audio(code + '.wav');
+			drum.play();
+		}
+
 		function keyPress(event) {
 			Array.from(document.getElementsByClassName('key')).forEach(key => {
 				if(key.getAttribute('data-key') == event.keyCode) {
-					key.className += ' clicked';
-					setTimeout(function(){
-						let index = key.className.indexOf(' clicked');
-						if (index > -1) key.className = key.className.substring(0, index);
-					}, 200);
+					shine(key);
+					play(event.keyCode);
 					return;
 				}
 			})

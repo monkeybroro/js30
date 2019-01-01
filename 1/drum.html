@@ -47,31 +47,42 @@
 			<div data-key="76" class="key">L</div>
 		</div>
 	</div>
+
+	<audio data-key="65" src="sounds/65.wav"></audio>
+	<audio data-key="83" src="sounds/83.wav"></audio>
+	<audio data-key="68" src="sounds/68.wav"></audio>
+	<audio data-key="70" src="sounds/70.wav"></audio>
+	<audio data-key="71" src="sounds/71.wav"></audio>
+	<audio data-key="72" src="sounds/72.wav"></audio>
+	<audio data-key="74" src="sounds/74.wav"></audio>
+	<audio data-key="75" src="sounds/75.wav"></audio>
+	<audio data-key="76" src="sounds/76.wav"></audio>
+
 	<script type="text/javascript">
-		function shine(key) {
-			key.className += ' clicked';
+		function shine(key, code) {
+			key.classList.add('clicked');
+			play(code);
 			setTimeout(function(){
-				let index = key.className.indexOf(' clicked');
-				if (index > -1) key.className = key.className.substring(0, index);
+				key.classList.remove('clicked');
 			}, 200);
 		}
 
 		function play(code) {
-			let drum = new Audio(code + '.wav');
+			const drum = document.querySelector(`audio[data-key="${code}"]`);
+			if (!drum) return;
 			drum.play();
 		}
 
 		function keyPress(event) {
-			Array.from(document.getElementsByClassName('key')).forEach(key => {
+			Array.from(document.querySelectorAll('.key')).forEach(key => {
 				if(key.getAttribute('data-key') == event.keyCode) {
-					shine(key);
-					play(event.keyCode);
+					shine(key, event.keyCode);
 					return;
 				}
 			})
 		}
 
-		document.body.addEventListener('keyup', keyPress);
+		document.body.addEventListener('keydown', keyPress);
 	</script>
 </body>
 </html>

@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <style>
+            .clock-panel {
+                width: 400px;
+                height: 400px;
+                margin-right: auto;
+                margin-left: auto;
+                margin-top: 300px;
+            }
+
+            .clock {
+                width:200px;
+                height:200px;
+                margin-left: auto;
+                margin-right:auto;
+                border-radius: 50%;
+                border: 3px solid black;
+                background-color: transparent;
+            }
+
+            .hand {
+                top: 50%;
+                width: 100px;
+                position: relative;
+                border: 2px solid black;
+                transform-origin: 100%;
+                transition: all 0.05s;
+                transform: rotate(90deg);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="clock-panel">
+            <div class="clock">
+                <div class="hand hour"></div>
+                <div class="hand minute"></div>
+                <div class="hand second"></div>
+            </div>
+        </div>
+        <script>
+            const hourHand = document.querySelector('.hour');
+            const minuteHand = document.querySelector('.minute');
+            const secondHand = document.querySelector('.second');
+            setInterval(function(){
+                let date = new Date();
+                let hour = date.getHours();
+                let minutes = date.getMinutes();
+                let seconds = date.getSeconds();
+                console.log(seconds);
+                let secondsDegree = seconds / 60 * 360 + 90;
+                secondHand.style.transform = `rotate(${secondsDegree}deg)`;
+            }, 1000)
+        </script>
+    </body>
+</html>

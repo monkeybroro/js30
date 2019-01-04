@@ -1,33 +1,38 @@
 <html>
     <head>
         <style>
+            html {
+                background: #018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
+                background-size: cover;
+            }
+
             .clock-panel {
-                width: 400px;
-                height: 400px;
-                margin-right: auto;
-                margin-left: auto;
-                margin-top: 300px;
+                width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                border: 10px solid white;
+                margin: 100px auto;
+                padding: 5px;
             }
 
             .clock {
-                width:200px;
-                height:200px;
-                margin-left: auto;
-                margin-right:auto;
-                border-radius: 50%;
-                border: 3px solid black;
-                background-color: transparent;
+                width:100%;
+                height:100%;              
+                position: relative;
+                transform: translateY(-3px);
             }
 
             .hand {
                 top: 50%;
-                width: 100px;
-                position: relative;
+                width: 95px;
                 border: 2px solid black;
                 transform-origin: 100%;
                 transition: all 0.05s;
                 transform: rotate(90deg);
+                position: absolute;
+                transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
             }
+
         </style>
     </head>
     <body>
@@ -47,9 +52,13 @@
                 let hour = date.getHours();
                 let minutes = date.getMinutes();
                 let seconds = date.getSeconds();
-                console.log(seconds);
                 let secondsDegree = seconds / 60 * 360 + 90;
+                let minuteDegree = (minutes / 60 * 360) + (seconds / 60 * 6) + 90;
+                let hourDegree = (hour % 12 / 12 * 360) + (minutes / 60 * 30) + 90;
+
                 secondHand.style.transform = `rotate(${secondsDegree}deg)`;
+                minuteHand.style.transform = `rotate(${minuteDegree}deg)`;
+                hourHand.style.transform = `rotate(${hourDegree}deg)`;
             }, 1000)
         </script>
     </body>

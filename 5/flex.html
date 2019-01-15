@@ -74,6 +74,7 @@
       font-size: 4em;
     }
     .panel.open {
+      flex: 5;
       font-size: 40px;
     }
 
@@ -124,7 +125,6 @@
       function clickPanel() {
         const currentOpen = document.querySelector('.open');
         if (currentOpen) currentOpen.classList.remove('open');
-        this.style.flex = 5;
         this.classList.add('open');
       }
       const panels = document.querySelectorAll('.panel');

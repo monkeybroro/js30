@@ -100,10 +100,23 @@
     checkboxes = document.querySelectorAll('input');
     checkboxes.forEach(item => item.addEventListener('click', clicked));
 
+    let start = null;
     function clicked(event) {
-        console.log(event.shiftKey);
         let item = event.target.parentNode;
-        console.log([...inbox.children].indexOf(event.target.parentNode));
+        if (event.shiftKey) {
+          const currentIndex = [...inbox.children].indexOf(event.target.parentNode);
+          if (start) makeSelection(start, currentIndex);
+          else start = currentIndex;
+        }
+    }
+
+    function makeSelection(from, to) {
+      console.log(from + ', ' + to);
+      for (let i = 0; i < checkboxes.length; i++) {
+        if ((i > from && i < to) || (i > to && i < from)) 
+          checkboxes[i].checked = checkboxes[from].checked;
+      }
+      start = null;
     }
     
 </script>

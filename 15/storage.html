@@ -22,6 +22,7 @@
     <form class="add-items">
       <input type="text" name="item" placeholder="Item Name" required>
       <input type="submit" value="+ Add Item">
+      <input type="checkbox" name="all" value="All">
     </form>
   </div>
 
@@ -29,6 +30,7 @@
   const addItems = document.querySelector('.add-items');
   const listitemsList = document.querySelector('.plates');
   const item = addItems.querySelector('input[name=item]');
+  const all = addItems.querySelector('input[name=all]');
   let items = JSON.parse(localStorage.getItem('items')) || [];
 
   function addItem(e) {
@@ -59,6 +61,17 @@
     items[e.target.dataset.index].done = !items[e.target.dataset.index].done;
     localStorage.setItem('items', JSON.stringify(items));
   }
+
+  function clickAll(e) {
+      const children = listitemsList.querySelectorAll('input');
+      children.forEach(child => {
+          child.checked = e.target.checked;
+          items[child.dataset.index].done = e.target.checked ? true: false;
+      })
+      console.log(items);
+      localStorage.setItem('items', JSON.stringify(items));
+  }
+  all.addEventListener('click', clickAll);
   listitemsList.addEventListener('click', clicking);
   addItems.addEventListener('submit', addItem);
   populateItems(items, listitemsList);

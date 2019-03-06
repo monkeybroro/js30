@@ -19,10 +19,9 @@
     sayings.appendChild(p);
 
     recognition.addEventListener('result', e => {
-        console.log(e);
 
         const transcript = [...e.results]
-        .map(results => result[0])
+        .map(results => results[0])
         .map(results => results.transcript)
         .join('');
 
